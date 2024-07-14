@@ -1,0 +1,113 @@
+{
+	"pages": [{
+			"path": "pages/tabbar/home/home",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "home",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/tabbar/vip-course/vip-course",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/tabbar/knowledge-shop/knowledge-shop",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/tabbar/offline/offline",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/tabbar/personal/personal",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/home-search/home-search",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/home-detail/home-detail",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+				// "app-plus": {
+				// 	"titleNView": false,
+				// 	"subNVues": [
+				// 		{
+				// 			"id": "#top",
+				// 			"path": "pages/home-detail/subNVue/video",
+				// 			"style": {
+				// 				"position": "dock",
+				// 				"dock": "top",
+				// 				"width": "100%",
+				// 				"height": "225px"
+				// 			}
+				// 		}
+				// 	]
+				// }
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "中和商道学院",
+		"navigationBarBackgroundColor": "#2F85FC",
+		"backgroundColor": "#FFFFFF"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#666",
+		"selectedColor": "black",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/tabbar/home/home",
+				"text": "首页",
+				"iconPath": "static/icon/home.png",
+				"selectedIconPath": "static/icon/home-active.png"
+			},
+			{
+				"pagePath": "pages/tabbar/vip-course/vip-course",
+				"text": "会员课",
+				"iconPath": "static/icon/crown.png",
+				"selectedIconPath": "static/icon/crown-active.png"
+			},
+			{
+				"pagePath": "pages/tabbar/knowledge-shop/knowledge-shop",
+				"text": "知识铺",
+				"iconPath": "static/icon/book.png",
+				"selectedIconPath": "static/icon/book-active.png"
+			},
+			{
+				"pagePath": "pages/tabbar/offline/offline",
+				"text": "线下课",
+				"iconPath": "static/icon/map.png",
+				"selectedIconPath": "static/icon/map-active.png"
+			},
+			{
+				"pagePath": "pages/tabbar/personal/personal",
+				"text": "个人中心",
+				"iconPath": "static/icon/personal.png",
+				"selectedIconPath": "static/icon/personal-active.png"
+			}
+		]
+	}
+}

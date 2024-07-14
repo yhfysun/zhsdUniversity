@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>视频播放</title>
+		<!-- 引入基础样式文件 mui-player.min.css -->
+		<link rel="stylesheet" type="text/css" href="../mui-player.min.css" />
+		<!-- 引入基础脚本 mui-player.min.js -->
+		<script type="text/javascript" src="../mui-player.min.js"></script>
+		<script src="../hls.js"></script>
+	</head>
+	<body>
+		<!-- 指定播放器容器 -->
+		<div id="mui-player"></div>
+
+
+		<style type="text/css">
+			#mui-player {
+				margin-top: 100px;
+			}
+		</style>
+
+		<script>
+			// 初始化 MuiPlayer 插件，MuiPlayer 方法传递一个对象，该对象包括所有插件的配置
+			var mp = new MuiPlayer({
+				container: '#mui-player',
+				title: '',
+				src: '../../static/video/nuanshan/video.m3u8',
+				parse: {
+					container: document.getElementById("mui-player"),
+					type: 'hls',
+					loader: Hls,
+					config: { // hls config to：https://github.com/video-dev/hls.js/blob/HEAD/docs/API.md#fine-tuning
+						debug: false,
+					},
+				},
+				pageHead: false,
+				autoFit: true,
+				objectFit: "cover"
+			})
+
+			var config = {
+				autoStartLoad: true,
+				startPosition: -1,
+				debug: false,
+				capLevelOnFPSDrop: false,
+				capLevelToPlayerSize: false,
+				defaultAudioCodec: undefined,
+				initialLiveManifestSize: 1,
+				maxBufferLength: 30,
+				maxMaxBufferLength: 600,
+				backBufferLength: Infinity,
+				frontBufferFlushThreshold: Infinity,
+				maxBufferSize: 60 * 1000 * 1000,
+				maxBufferHole: 0.5,
+				highBufferWatchdogPeriod: 2,
+				nudgeOffset: 0.1,
+				nudgeMaxRetry: 3,
+				maxFragLookUpTolerance: 0.25,
+				liveSyncDurationCount: 3,
+				liveMaxLatencyDurationCount: Infinity,
+				liveDurationInfinity: false,
+				preferManagedMediaSource: false,
+				enableWorker: true,
+				enableSoftwareAES: true,
+				fragLoadPolicy: {
+					default: {
+						maxTimeToFirstByteMs: 9000,
+						maxLoadTimeMs: 100000,
+						timeoutRetry: {
+							maxNumRetry: 2,
+							retryDelayMs: 0,
+							maxRetryDelayMs: 0,
+						},
+						errorRetry: {
+							maxNumRetry: 5,
+							retryDelayMs: 3000,
+							maxRetryDelayMs: 15000,
+							backoff: 'linear',
+						},
+					},
+				},
+				startLevel: undefined,
+				audioPreference: {
+					characteristics: 'public.accessibility.describes-video',
+				},
+				subtitlePreference: {
+					lang: 'en-US',
+				},
+				startFragPrefetch: false,
+				testBandwidth: true,
+				progressive: false,
+				lowLatencyMode: true,
+				fpsDroppedMonitoringPeriod: 5000,
+				fpsDroppedMonitoringThreshold: 0.2,
+				appendErrorMaxRetry: 3,
+				loader: customLoader,
+				fLoader: customFragmentLoader,
+				pLoader: customPlaylistLoader,
+				xhrSetup: XMLHttpRequestSetupCallback,
+				fetchSetup: FetchSetupCallback,
+				abrController: AbrController,
+				bufferController: BufferController,
+				capLevelController: CapLevelController,
+				fpsController: FPSController,
+				timelineController: TimelineController,
+				enableDateRangeMetadataCues: true,
+				enableEmsgMetadataCues: true,
+				enableID3MetadataCues: true,
+				enableWebVTT: true,
+				enableIMSC1: true,
+				enableCEA708Captions: true,
+				stretchShortVideoTrack: false,
+				maxAudioFramesDrift: 1,
+				forceKeyFrameOnDiscontinuity: true,
+				abrEwmaFastLive: 3.0,
+				abrEwmaSlowLive: 9.0,
+				abrEwmaFastVoD: 3.0,
+				abrEwmaSlowVoD: 9.0,
+				abrEwmaDefaultEstimate: 500000,
+				abrEwmaDefaultEstimateMax: 5000000,
+				abrBandWidthFactor: 0.95,
+				abrBandWidthUpFactor: 0.7,
+				abrMaxWithRealBitrate: false,
+				maxStarvationDelay: 4,
+				maxLoadingDelay: 4,
+				minAutoBitrate: 0,
+				emeEnabled: false,
+				licenseXhrSetup: undefined,
+				drmSystems: {},
+				drmSystemOptions: {},
+				requestMediaKeySystemAccessFunc: requestMediaKeySystemAccess,
+				cmcd: {
+					sessionId: uuid(),
+					contentId: hash(contentURL),
+					useHeaders: false,
+				},
+			};
+
+			var hls = new Hls(config);
+		</script>
+	</body>
+</html>

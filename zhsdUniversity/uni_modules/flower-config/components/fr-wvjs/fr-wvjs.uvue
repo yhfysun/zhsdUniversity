@@ -1,0 +1,88 @@
+<template>
+	<web-view v-if="isInit" class="__flower-web-view" :id="wv" @message="changeMessageWv" src="/uni_modules/flower-config/hybrid/html/fr-wvjs.html" />
+</template>
+
+<script>
+	import { pageStoreMap, tempStoreMap, webviewContextStoreMap } from "./store/wvStore.uts";
+	import { uuid, getCurrentPagesRoute, mixinStore } from "@/uni_modules/flower-api/uni-app-x";
+	export default {
+		mixins: [mixinStore],
+		data() {
+			return {
+				wv: uuid(32) as string,
+				isInit: false as Boolean,
+				getCurrentPagesRoute: getCurrentPagesRoute()
+			}
+		},
+		props: {
+			type: {
+				type: String,
+				default: "svg"
+			},
+			isCache: {
+				type: Boolean,
+				default: false
+			},
+			resourceId: {
+				type: String,
+				default: "",
+				required: true
+			},
+			resource: {
+				type: String,
+				default: "",
+				required: true
+			}
+		},
+		created() {
+			if (pageStoreMap.get(this.getCurrentPagesRoute) == null) {
+				this.isInit = true;
+				pageStoreMap.set(this.getCurrentPagesRoute as string, this.wv);
+			};
+
+			if (webviewContextStoreMap.get(this.getCurrentPagesRoute) == null) {
+				if (this.getStoreState(this.resourceId, this.isCache) == "") {
+					tempStoreMap.set(this.resourceId, this.resource);
+				};
+			} else {
+				this.getwebviewContext(this.resourceId, this.resource);
+			};
+		},
+		watch: {
+			resource() {
+				this.getwebviewContext(this.resourceId, this.resource);
+			}
+		},
+		methods: {
+			changeMessageWv(event : UniWebViewMessageEvent) {
+				const _this = this;
+				if (event.detail.data[0]['isInitialize'] ?? false == true) {
+					webviewContextStoreMap.set(_this.getCurrentPagesRoute as string, uni.createWebviewContext(pageStoreMap.get(_this.getCurrentPagesRoute) as string, _this) as WebviewContext);
+					tempStoreMap.forEach(function (value : string, key : string) {
+						_this.getwebviewContext(key, value);
+					});
+				} else {
+					_this.setStoreState(event.detail.data[0]['id'] as string, event.detail.data[0]['result'] as string, _this.isCache);
+					tempStoreMap.delete(event.detail.data[0]['id'] as string);
+				};
+			},
+			getwebviewContext(resourceId : string, resource : string) {
+				if (this.getStoreState(resourceId, this.isCache) == "") {
+					webviewContextStoreMap.get(this.getCurrentPagesRoute)?.evalJS(`onPostMessage('${this.type}','${resourceId}','${resource}')`);
+				};
+			}
+		},
+		unmounted() {
+			webviewContextStoreMap.delete(this.getCurrentPagesRoute as string);
+			pageStoreMap.delete(this.getCurrentPagesRoute as string);
+		}
+	}
+</script>
+
+<style>
+	.__flower-web-view {
+		display: none;
+		width: 0rpx;
+		height: 0rpx;
+	}
+</style>

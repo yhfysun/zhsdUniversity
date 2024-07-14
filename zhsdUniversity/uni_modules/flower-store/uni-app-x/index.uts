@@ -1,0 +1,88 @@
+import vuex from "./main.uts";
+
+class useStore {
+	static getState(key : string) : any {
+		return getData(key);
+	};
+	static setState(key : string, value : any) : void {
+		setData(key, value);
+	};
+
+	static getStore(key : string) : any {
+		return getStorageSync(key);
+	};
+	static setStore(key : string, value : any) : void {
+		setData(key, value);
+		uni.setStorageSync(key, value);
+	};
+
+	static getStoreState(key : string, isCache : boolean) : any {
+		return isCache ? getStorageSync(key) : getData(key);
+	};
+	static setStoreState(key : string, value : any, isCache : boolean) : void {
+		setData(key, value);
+		if (isCache) {
+			uni.setStorageSync(key, value);
+		};
+	};
+};
+
+function getStorageSync(key : string) : any {
+	const temp = uni.getStorageSync(key);
+
+	if (temp === "") {
+		return getData(key);
+	};
+	if (getData(key) !== "") {
+		return getData(key);
+	};
+
+	return temp as any;
+};
+
+function getData(key : string) : any {
+	if (vuex[key] == null) {
+		return "";
+	};
+	// #ifndef APP-ANDROID 
+	if (vuex[key] == undefined) {
+		return "";
+	};
+	// #endif
+	if (vuex[key] == "") {
+		return "";
+	};
+	return vuex[key] as any;
+};
+
+function setData(key : string, value : any) : void {
+	vuex[key] = value;
+};
+
+const mixinStore = defineMixin({
+	methods: {
+		getState(key : string) : any {
+			return useStore.getState(key);
+		},
+		setState(key : string, value : any) : void {
+			useStore.setState(key, value);
+		},
+		getStore(key : string) : any {
+			return useStore.getStore(key);
+		},
+		setStore(key : string, value : any) : void {
+			useStore.setStore(key, value);
+		},
+		getStoreState(key : string, isCache : boolean) : any {
+			return useStore.getStoreState(key, isCache);
+		},
+		setStoreState(key : string, value : any, isCache : boolean) : void {
+			useStore.setStoreState(key, value, isCache);
+		}
+	}
+});
+
+export {
+	useStore,
+	mixinStore
+}
