@@ -56,7 +56,6 @@ class Request {
 		this.beforeRequest && typeof this.beforeRequest === 'function' && this.beforeRequest(this)
 		// 发起请求
 		return new Promise((resolve, reject) => {
-			
 		
 			uni.request({
 				url: this.url,
@@ -76,7 +75,7 @@ class Request {
 					resolve(data)
 				},
 				fail: (err) => {
-					console.error('Network request failed:', error);
+					console.error('Network request failed:', err);
 					uni.showToast({
 						title: '网络请求失败! ',
 						duration: 1500,

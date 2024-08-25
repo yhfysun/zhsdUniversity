@@ -110,7 +110,7 @@
 			},
 			clickCourseItem(course) {
 				uni.navigateTo({
-					url: "../../pages/home-detail/home-detail"
+					url: "../../pages/home-detail/home-detail?couId=" + course.couId
 				})
 				console.log(course.couId)
 			}

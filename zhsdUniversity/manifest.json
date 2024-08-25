@@ -85,12 +85,12 @@
 				"target": "http://192.168.156.218:8000",// 目标服务器
 				"changeOrigin": true
 			},
-			"/api1": {
-				"target": "http://192.168.156.218:8000",// 目标服务器
+			"/api": {
+				"target": "http://127.0.0.1:88",// 目标服务器
 				"changeOrigin": true,
 				/**重写路径**/
 				"pathRewrite": {
-					"^/api1": "/"
+					"^/api": "/api"
 				}
 			}
 		}

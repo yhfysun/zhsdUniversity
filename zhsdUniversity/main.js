@@ -19,8 +19,11 @@ import { $http } from './utils/http.js'
 //vuex使用
 import store from "/store"
 import Vuex from "vuex";
+// #ifdef H5
 import VConsole from 'vconsole'
 new VConsole()
+// #endif 
+import { baseUrl } from './conf'
 
 export default function createApp() {
 	const app = createSSRApp(App)
@@ -29,7 +32,7 @@ export default function createApp() {
 	app.config.productionTip = false
 	// app.config.globalProperties.$api = api;
 	// 配置请求根路径
-	$http.baseUrl = ''
+	$http.baseUrl = baseUrl + "/api"
 	uni.$http = $http
 	uni.$apiKey = 'xxxxxxxxx'
 

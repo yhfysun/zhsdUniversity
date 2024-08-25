@@ -5,7 +5,7 @@
 		<view class="card-scroll" v-for="course in courseList" :key="course.couId">
 			<view class="card-content" @click="clickCourseItem(course)">
 				<view class="card-img">
-					<image :src="course.imageSrc" mode="aspectFill"></image>
+					<image src="http://127.0.0.1:8000/app/media/image/1.jpg" mode="aspectFill"></image>
 				</view>
 				<view class="card-course">
 					<view class="card-course_title">

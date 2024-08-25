@@ -11,31 +11,38 @@
 		}, {
 			"path": "pages/tabbar/vip-course/vip-course",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "vip-course",
 				"enablePullDownRefresh": false
 			}
 
 		}, {
 			"path": "pages/tabbar/knowledge-shop/knowledge-shop",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "knowledge-shop",
 				"enablePullDownRefresh": false
 			}
 
 		}, {
 			"path": "pages/tabbar/offline/offline",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "offline",
 				"enablePullDownRefresh": false
 			}
 
 		}, {
 			"path": "pages/tabbar/personal/personal",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "personal",
 				"enablePullDownRefresh": false
 			}
-
 		},
 		{
 			"path": "pages/home-search/home-search",

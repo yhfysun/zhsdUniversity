@@ -9,6 +9,7 @@
 		</view>
 		<!-- #ifdef H5 -->
 		<view class="course-video">
+			<!-- <video src="http://127.0.0.1:8000/app/media/video/1.mp4"></video> -->
 			<view id="mui-player">
 			</view>
 		</view>
@@ -44,7 +45,8 @@
 						<view class="detail-catalogue_box" v-for="chapter in i.chapters" :key="chapter">
 							<view class="detail-chapter" @click="openChapter(chapter)">
 								<view class="detail-chapter_box">
-									<view class="detail-chapter_title" :class="{'activeChapter': chapterTitle == chapter}">
+									<view class="detail-chapter_title"
+										:class="{'activeChapter': chapterTitle == chapter}">
 										0{{chapter}}引导课：真情留不住框架得人心
 									</view>
 									<view class="detail-chapter_type right">
@@ -101,6 +103,7 @@
 				},
 				detail: {
 					src: "../../static/video/nuanshan/video.m3u8",
+					src1: "",
 					poster: "../../static/jpg/1.jpg"
 				},
 				wx: {
@@ -127,7 +130,8 @@
 				chapterTitle: 1
 			};
 		},
-		onLoad() {
+		onLoad(options) {
+			console.log('页面加载时接收到的参数:', options)
 			let res = uni.getSystemInfoSync()
 			this.scrollH = res.windowHeight - 510
 		},
@@ -137,7 +141,7 @@
 				// 初始化 MuiPlayer 插件，MuiPlayer 方法传递一个对象，该对象包括所有插件的配置
 				this.mp = new MuiPlayer({
 					container: document.getElementById("mui-player"),
-					src: this.detail.src,
+					src: '/api/app/media/stream/video.m3u8',
 					poster: this.detail.poster,
 					parse: {
 						type: 'hls',
@@ -163,7 +167,6 @@
 						}
 					})
 				})
-
 			});
 			// #endif
 
@@ -221,7 +224,8 @@
 
 	.detail {
 		box-sizing: border-box;
-		display: flex;		flex-direction: column;
+		display: flex;
+		flex-direction: column;
 		width: 100%;
 		height: 100%;
 		background-color: #fff;
@@ -307,21 +311,21 @@
 			width: 95%;
 			margin: 0 auto;
 		}
-		
+
 		.detail-catalogue {
 			display: flex;
 			flex-direction: column;
 			box-sizing: border-box;
 			width: 100%;
+
 			.detail-catalogue_box {
 				width: 100%;
-				
+
 				.detail-chapter {
 					display: flex;
 					flex-direction: column;
 					width: 100%;
-					
-					
+
 					.detail-chapter_box {
 						display: flex;
 						flex-direction: row;
@@ -329,11 +333,11 @@
 						margin: 10px auto;
 						box-sizing: border-box;
 						justify-content: space-between;
-						
+
 						.activeChapter {
 							color: #ff6d18;
 						}
-						
+
 						.detail-chapter_type {
 							font-size: 13px;
 							box-sizing: border-box;
@@ -342,7 +346,7 @@
 							color: gold;
 							padding: 2px 10px;
 						}
-						
+
 						.detail-chapter_time {
 							font-size: 12px;
 							color: #bcbcbc;

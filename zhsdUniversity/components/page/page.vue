@@ -7,9 +7,20 @@
     </swiper-item> -->
 
 		<swiper-item class="swiper-item" v-for="(i, index) in tab" :key="index">
-			<pageItem :list="list" :load="load">
-				<slot name="header"></slot>
-				<slot></slot>
+			<pageItem v-if="i.couName == '推荐'" :list="list" :load="load">
+				<recommend></recommend>
+			</pageItem>
+			<pageItem v-if="i.couName == '自学课'" :list="list" :load="load">
+				自学课
+			</pageItem>
+			<pageItem v-if="i.couName == '精品课'" :list="list" :load="load">
+				精品课
+			</pageItem>
+			<pageItem v-if="i.couName == '跟学365'" :list="list" :load="load">
+				跟学365
+			</pageItem>
+			<pageItem v-if="i.couName == '创业课'" :list="list" :load="load">
+				创业课
 			</pageItem>
 		</swiper-item>
 	</swiper>
@@ -96,7 +107,7 @@
 				// if (!this.listCacheData[current] || this.listCacheData[current].length === 0) {
 				//   this.getList(current);
 				// }
-				console.log(".tab", this.tab[current])
+				// console.log(".tab", this.tab[current])
 				this.$emit('changeSwiper', current);
 			},
 			getList() {

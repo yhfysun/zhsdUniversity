@@ -12,21 +12,6 @@
 
 		<view class="home-list">
 			<page class="list-scroll" :activeIndex="activeIndex" :tab="courseList" @changeSwiper="change">
-				<template v-slot:header>
-					<view class="list-header">
-						<slide-img :list="list" @slideClick="slideClick"></slide-img>
-						<menu-item :menuList="menuList"></menu-item>
-						<join-vip></join-vip>
-					</view>
-				</template>
-				<view>
-					<message></message>
-					<course-card type="scroll"></course-card>
-					<course-card type="base" :courseCard="courseCard.vipCourseCard"></course-card>
-					<course-card type="base" :courseCard="courseCard.knowCourseCard"></course-card>
-					<course-card type="line" :courseCard="courseCard.lineCourseCard"></course-card>
-					<course-card type="big" :courseCard="courseCard.bigCourseCard"></course-card>
-				</view>
 			</page>
 		</view>
 
@@ -37,319 +22,18 @@
 <script>
 	// easyCom components/组件名/组件名.vue 直接用 组件名
 	// import navBar from "@/components/navbar/navbar.vue"
-	import {getTabCourseList} from '@/common/api/course.js'
+	import {
+		getTabCourseList
+	} from '@/common/api/course.js'
 	// #ifndef H5
-	import { getCurrentInstance } from "vue";
+	import {
+		getCurrentInstance
+	} from "vue";
 	// #endif
 	export default {
 		data() {
 			return {
-				courseCard: {
-					vipCourseCard: {
-						title: "会员课",
-						courseList: [{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								detail: "详情详情详情详情详情详情详情详情详情详情详情详情详情详情",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								readerTo: "right",
-								footContentList: [{
-									content: "免费",
-									contentType: "type",
-									color: "green",
-									borderColor: "green"
-								}],
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "终身VIP",
-									contentType: "type",
-									color: "red",
-									borderColor: "red",
-									contentTo: "right"
-								}]
-
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "终身VIP",
-									contentType: "type",
-									color: "red",
-									borderColor: "red",
-									contentTo: "right"
-								}],
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "免费",
-									contentType: "type",
-									color: "green",
-									borderColor: "green"
-								}],
-								readerTo: "right"
-							}
-						]
-					},
-					knowCourseCard: {
-						title: "知识铺",
-						courseList: [{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								detail: "详情详情详情详情详情详情详情详情详情详情详情详情详情详情",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-										content: "799.0",
-										contentType: "price",
-										color: "red",
-									},
-									{
-										content: "399.0",
-										contentType: "vipPrice",
-										color: "white",
-										bgColor: "red"
-									}
-								],
-								readerTo: "right"
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "",
-								footContentList: [{
-										content: "799",
-										contentType: "price",
-										color: "red",
-									},
-									{
-										content: "299",
-										contentType: "vipPrice",
-										color: "white",
-										bgColor: "red",
-										contentTo: "right"
-									}
-								],
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "免费",
-									contentType: "type",
-									color: "green",
-									borderColor: "green"
-								}],
-								readerTo: "right"
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "免费",
-									contentType: "type",
-									color: "green",
-									borderColor: "green"
-								}],
-								readerTo: "right"
-							}
-						]
-					},
-					lineCourseCard: {
-						title: "演讲口才",
-						courseList: [{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								detail: "详情详情详情详情详情详情详情详情详情详情详情详情详情详情",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.88万",
-								footContentList: [{
-									content: "799.0",
-									contentType: "price",
-									color: "red",
-								}],
-								readerTo: "right"
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "88.8万",
-								footContentList: [{
-									content: "799",
-									contentType: "price",
-									color: "red",
-								}],
-								readerTo: "right"
-							}
-						]
-					},
-					bigCourseCard: {
-						title: "品牌大课",
-						courseList: [{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								detail: "详情详情详情详情详情详情详情详情详情详情详情详情详情详情",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "",
-								footContentList: [{
-										content: "09/06 - 09/07",
-										contentType: "normal",
-										color: "#bcbcbc",
-									},
-									{
-										content: "5911",
-										contentType: "price",
-										color: "red",
-										contentTo: "right"
-									}
-								],
-								textTo: "right"
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "",
-								footContentList: [{
-										content: "09/06 - 09/07",
-										contentType: "normal",
-										color: "#bcbcbc",
-									},
-									{
-										content: "5911",
-										contentType: "price",
-										color: "red",
-										contentTo: "right"
-									}
-								],
-								textTo: "right"
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								courseReader: "",
-								footContentList: [{
-										content: "09/06 - 09/07",
-										contentType: "normal",
-										color: "#bcbcbc",
-									},
-									{
-										content: "5911",
-										contentType: "price",
-										color: "red",
-										contentTo: "right"
-									}
-								],
-							},
-							{
-								couId: "1",
-								title: "[私域] 微信创业指南微信创业指南",
-								// #ifdef H5
-								imageSrc: "../../../static/jpg/2.png",
-								// #endif
-								// #ifndef H5
-								imageSrc: "../../static/jpg/2.png",
-								// #endif
-								footContentList: [{
-										content: "09/06 - 09/07",
-										contentType: "normal",
-										color: "#bcbcbc",
-									},
-									{
-										content: "5911",
-										contentType: "price",
-										color: "red",
-										contentTo: "right"
-									}
-								],
-							}
-						]
-					}
-				},
+				
 				cardList: [{
 						mode: "image",
 						title: "title",
@@ -395,56 +79,6 @@
 						cover: []
 					}
 				],
-				menuList: [{
-						name: "签到",
-						icon: "calendar"
-					},
-					{
-						name: "邀请",
-						icon: "mail-open"
-					},
-					{
-						name: "电子书",
-						icon: "wallet"
-					},
-					{
-						name: "圈子",
-						icon: "circle-filled"
-					}
-				],
-				list: [{
-						// #ifdef H5
-						src: "../../../static/jpg/1.jpg",
-						// #endif
-						// #ifndef H5
-						src: "../../static/jpg/1.jpg"
-						// #endif
-					},
-					{
-						// #ifdef H5
-						src: "../../../static/jpg/2.png",
-						// #endif
-						// #ifndef H5
-						src: "../../static/jpg/2.png"
-						// #endif
-					},
-					{
-						// #ifdef H5
-						src: "../../../static/jpg/1.jpg",
-						// #endif
-						// #ifndef H5
-						src: "../../static/jpg/1.jpg"
-						// #endif
-					},
-					{
-						// #ifdef H5
-						src: "../../../static/jpg/2.png",
-						// #endif
-						// #ifndef H5
-						src: "../../static/jpg/2.png"
-						// #endif
-					}
-				],
 				courseList: [],
 				tabIndex: 0,
 				activeIndex: 0,
@@ -488,8 +122,10 @@
 
 		},
 		methods: {
-			tab({ data, index }) {
-				// console.log("tab", data)
+			tab({
+				data,
+				index
+			}) {
 				this.activeIndex = index;
 			},
 			open() {
@@ -507,9 +143,7 @@
 			change(current) {
 				this.tabIndex = current;
 			},
-			slideClick(slideIndex) {
-				console.log("slideIndex", slideIndex)
-			}
+			
 		}
 	}
 </script>
@@ -545,12 +179,15 @@
 					flex-direction: column;
 					align-items: center;
 					background-color: white;
+
 					slide-img {
 						width: 100%;
 					}
+
 					menu-item {
 						width: 100%;
 					}
+
 					join-vip {
 						width: 100%;
 					}
